@@ -1,0 +1,31 @@
+"""
+Task-1: Winner Winner Chocolate Dinner ! "
+Starting with n chocolates in a bowl, Two players take turns in order to remove them from the 
+bowl. They can either take one or two chocolates in each turn, and the player who removes the 
+last chocolates wins entire bowl of chocolate.
+Imagine that the first player decides to remove a single Chocolate in each turn, while the second 
+player withdraws one Chocolate if the number of chocolates left in the bowl are odd return-1, and 
+-2 if it is even.
+Make Two Functions for Player_1 and Player_2 and call them recursively in such a way that both 
+handle each others strategy.
+
+"""
+
+def player_1(chocolates):
+    if chocolates<=2:
+        return 1
+    return player_2(chocolates-1)
+
+def player_2(chocolates):
+    if chocolates%2==1:
+        return -1
+    return -2
+    
+chocolates_in_bowl=6
+winner=player_1(chocolates_in_bowl)
+
+if winner==1:
+    print("Player 1 wins the chocolate dinner game!")
+else:
+    print("Player 2 wins the chocolate dinner game!")
+
