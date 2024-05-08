@@ -1,0 +1,57 @@
+'''
+Created on April 25, 2024
+
+@author: Rushikesh
+'''
+
+import turtle  # allows us to use the turtles library
+
+wn = turtle.Screen()  # creates a graphics window
+
+
+def octagon(obj,size):
+   for _ in range(8):
+        obj.forward(size)
+        obj.left(45)
+
+def hexagon(obj, size):
+    for _ in range(6):
+        obj.forward(size)
+        obj.left(60)
+
+def circle(obj, radius):
+    obj.circle(radius)
+
+def pattern1(obj):
+    for _ in range(18):
+        octagon(obj,50)
+        obj.right(20)
+        
+def pattern2(obj):
+    for _ in range(12):
+        hexagon(obj,50)
+        obj.left(30)
+
+def pattern3(obj):
+    for _ in range(12):
+        circle(obj,50)
+        obj.left(30)
+
+def move_to_next(obj,x,y):
+    obj.penup()
+    obj.goto(x,y)
+    obj.pendown()
+
+if __name__ == "__main__":
+    def sketch():
+        my_turtle = turtle.Turtle()
+
+        pattern1(my_turtle)
+        move_to_next(my_turtle,-300,0)
+        pattern2(my_turtle)
+        move_to_next(my_turtle,300,0)
+        pattern3(my_turtle)
+
+        wn.exitonclick()
+
+    sketch()
