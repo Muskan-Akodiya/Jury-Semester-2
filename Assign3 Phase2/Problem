@@ -1,0 +1,98 @@
+import time
+
+class Individual:
+    def __init__(self, name, birthday=None):
+        self.name = name
+        if birthday is not None:
+            try:
+                from_year = int(birthday.split("-")[0])
+            except ValueError:
+                raise ValueError("Invalid birthday string format (YYYY-MM-DD expected)")
+            self.birth_year = from_year
+        else:
+            self.birth_year = None
+
+    def get_name(self):
+        return self.name
+
+    def add_birthday(self, birthday):
+        self.birthday = birthday
+
+    def get_age(self):
+        if self.birth_year is None:
+            raise ValueError("Birth year is not set")
+        current_year = time.localtime().tm_year
+        return current_year - self.birth_year
+
+    def __str__(self) -> str:
+        return f"Name: {self.name} (Faculty)"
+
+class AU_Employee(Individual):
+    _id_counter = 0
+
+    def __init__(self, name, department):
+        super().__init__(name)
+        AU_Employee._id_counter += 1
+        self.unique_id = AU_Employee._id_counter
+        self.department = department
+
+    def get_unique_id(self):
+        return self.unique_id
+
+class Faculty(AU_Employee):
+    def __init__(self, name, department, classroom_year=None):
+        super().__init__(name, department)
+        self.classroom_year = classroom_year
+
+class EN_Faculty(Faculty):
+    def __init__(self, name, department, classroom_year=None):
+        super().__init__(name, department, classroom_year)
+        
+class DN_Faculty(Faculty):
+    def __init__(self, name, department, classroom_year=None):
+        super().__init__(name, department, classroom_year)
+
+class Roster_AU:
+    def __init__(self):
+        self.faculty = {}
+
+    def add_faculty(self, f):
+        if f.name not in self.faculty:
+            self.faculty[f.name] = f
+
+    def add_courses(self, f, c):
+        if f.name not in self.faculty:
+            raise Exception("Faculty not found!!!")
+        self.faculty[f.name].courses.append(c)
+
+    def get_courses(self, f):
+        if f.name not in self.faculty:
+            raise Exception("Faculty not found!!!")
+        return self.faculty[f.name].courses
+
+fac1 = EN_Faculty('Rushikesh Pawar', 'Engineering', 2017)
+fac2 = EN_Faculty('Rahul Thakur', 'Engineering', 2019)
+fac3 = DN_Faculty('Sanjay Sonwani','Design',2018)
+fac4 = DN_Faculty('Varun Tiwari','Design',2016)
+roster = Roster_AU()
+
+roster.add_faculty(fac1)
+roster.add_faculty(fac2)
+roster.add_faculty(fac3)
+roster.add_faculty(fac4)
+
+fac1.courses = ["CCT","DT"]
+fac2.courses = ["Physics","Mathematics"]
+fac3.courses = ["ITD", "UX"]
+fac4.courses = ["JOM"]
+
+roster.add_courses(fac1, "ITC")
+roster.add_courses(fac3, "UI")
+
+individual1 = Individual("Muskan Akodiya", '2004-05-06')
+print(individual1.get_age())
+
+print(roster.get_courses(fac1))
+print(roster.get_courses(fac2))
+print(roster.get_courses(fac3))
+print(roster.get_courses(fac4))
