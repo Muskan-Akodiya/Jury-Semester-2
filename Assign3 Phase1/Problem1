@@ -1,0 +1,17 @@
+import turtle
+class Turtle():
+    def repeat_shape(turtle_object):
+        for _ in range(15):
+            turtle_object.forward(50)
+            turtle_object.left(90)
+            turtle_object.forward(50)
+            turtle_object.left(90)
+            turtle_object.forward(50)
+            turtle_object.left(90)
+            turtle_object.forward(50)
+            turtle_object.left(90)
+            turtle_object.left(30)
+
+    Demo_1 = turtle.Turtle()
+    repeat_shape(Demo_1)
+turtle.done()
